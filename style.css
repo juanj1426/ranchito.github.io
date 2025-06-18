@@ -1,0 +1,350 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    /* Establece la imagen de fondo en el body */
+    background-image: url(imagenes/rancho.png); /* ¡IMPORTANTE! Reemplaza con la ruta correcta a tu imagen si el nombre es diferente */
+    background-size: cover; /* Cubre todo el área disponible manteniendo su proporción */
+    background-position: center; /* Centra la imagen de fondo en el contenedor */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-attachment: fixed; /* Opcional: la imagen de fondo se mantiene fija al hacer scroll */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-y: auto; /* Permite el scroll si el contenido es muy largo */
+    overflow-x: hidden; /* Evita scroll horizontal */
+}
+
+.menu-container {
+    /* Fondo ligeramente transparente con desenfoque restaurado */
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro semi-transparente como estaba inicialmente */
+    backdrop-filter: blur(5px); /* Efecto de desenfoque, si es compatible */
+    -webkit-backdrop-filter: blur(5px); /* Para compatibilidad con Safari */
+
+    color: #fff;
+    padding: 30px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    max-width: 600px; /* Un poco más flexible, se ajustará con el 90% */
+    width: 90%; /* Hace que sea flexible y ocupe el 90% del ancho del viewport */
+    box-sizing: border-box;
+    text-align: center;
+    /* Eliminamos margin-top y margin-bottom fijos, el flexbox en body lo centra */
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.logo {
+    width: 90%; /* Se adapta al 90% del ancho de su contenedor */
+    max-width: 500px; /* No será más grande de 500px */
+    height: auto;
+    margin-bottom: 8px;
+}
+
+header h1 {
+    font-family: 'Georgia', serif;
+    font-size: 2.8em;
+    color: #ffd700; /* Amarillo dorado para el título principal */
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.slogan {
+    font-size: 1.1em;
+    color: #ffffff; /* Blanco suave para el eslogan */
+    margin-top: 5px;
+    letter-spacing: 1.5px;
+}
+
+.menu-section {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15); /* Conservamos el borde para separar secciones */
+    text-align: left;
+}
+
+.menu-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.menu-section h2 {
+    font-size: 1.7em;
+    color: #ffd700; /* Amarillo dorado para los títulos de sección */
+    text-align: center;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+}
+
+.menu-section h2::after {
+    content: '';
+    display: block;
+    width: 45px;
+    height: 2px;
+    background-color: #ffd700; /* Amarillo dorado para la línea debajo de los títulos */
+    margin: 8px auto 0;
+}
+
+/* NUEVOS ESTILOS PARA LAS IMÁGENES DE SECCIÓN */
+.section-image {
+    width: 100%; /* Ocupa el 100% del ancho del .menu-section */
+    max-width: 400px; /* Limita el tamaño máximo para que no sea excesivamente grande */
+    height: 180px; /* Altura fija para consistencia entre las imágenes de sección */
+    object-fit: cover; /* Recorta la imagen para que cubra el área sin distorsionarse */
+    border-radius: 10px; /* Bordes redondeados para la imagen */
+    margin: 15px auto 25px auto; /* Centra la imagen y añade margen superior e inferior */
+    display: block; /* Asegura que la imagen se comporte como un bloque para el margen auto */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); /* Sombra para que destaque un poco */
+    border: 2px solid rgba(255, 255, 255, 0.1); /* Borde sutil */
+}
+
+
+.menu-item {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.08); /* Conservamos el borde punteado para ítems */
+    /* Añadidos para interactividad y feedback visual */
+    cursor: pointer; /* Cambia el cursor para indicar que es clickeable */
+    transition: background-color 0.3s ease; /* Transición suave al pasar el mouse */
+}
+
+.menu-item:hover {
+    background-color: rgba(255, 255, 255, 0.05); /* Ligeramente más visible al pasar el mouse */
+}
+
+.menu-item p {
+    flex-grow: 1;
+    font-size: 1.05em;
+    margin: 0;
+    color: #ffd700; /* Amarillo dorado para los nombres de las comidas */
+    line-height: 1.3;
+}
+
+.menu-item span {
+    font-weight: bold;
+    font-size: 1.05em;
+    color: #ffd700; /* Ya estaba en amarillo dorado, lo mantengo */
+    margin-left: 8px;
+    white-space: nowrap;
+}
+
+.menu-item .description {
+    flex-basis: 100%;
+    font-size: 0.85em;
+    color: #f0f0f0; /* Blanco suave para la descripción, para que se lea mejor */
+    margin-top: 3px;
+    padding-left: 8px;
+    box-sizing: border-box;
+}
+
+.menu-item p:only-child {
+    flex-grow: 1;
+}
+
+/* --- ESTILOS PARA EL MODAL DE DETALLES DE COMIDA --- */
+#food-details-overlay {
+    position: fixed; /* Fijo en el viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro semi-transparente que cubre todo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Asegura que esté por encima de todo lo demás */
+    visibility: hidden; /* Oculto por defecto */
+    opacity: 0; /* Oculto por defecto, para una transición suave */
+    transition: visibility 0.3s, opacity 0.3s ease; /* Transición para mostrar/ocultar */
+}
+
+#food-details-overlay.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+#food-details-content {
+    background-image: url(imagenes/ranchito.png); /* Asegúrate de que esta imagen de fondo del modal sea adecuada */
+    background-color: #ab621d; /* Fondo del contenido del modal */
+    background-size: cover; /* Ajusta la imagen de fondo del modal */
+    background-position: center; /* Centra la imagen de fondo del modal */
+    color: #fe0000; /* Color del texto principal del modal */
+    padding: 30px; /* Reducido un poco el padding para mejor ajuste */
+    border-radius: 20px;
+    text-align: center;
+    position: relative;
+    max-width: 450px; /* Ancho máximo para el contenido del modal */
+    width: 90%; /* Ancho responsivo del contenido del modal */
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.9);
+    box-sizing: border-box; /* Asegura que el padding se incluya en el ancho/alto */
+    overflow-y: auto; /* Permite el scroll si el contenido es muy largo */
+    max-height: 90vh; /* Limita la altura máxima del modal para evitar que se desborde */
+}
+
+#food-details-content img {
+    /* Estilos mejorados para la imagen dentro del modal */
+    max-width: 100%; /* La imagen se ajustará al ancho del contenedor */
+    height: 200px; /* **Altura fija para consistencia** - Ajusta este valor si es necesario */
+    object-fit: cover; /* **Cubre el área sin distorsionar y recorta si es necesario** */
+    border-radius: 10px; /* Bordes ligeramente redondeados para la imagen */
+    margin-bottom: 20px; /* Más espacio debajo de la imagen */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); /* Sombra suave para la imagen */
+    border: 3px solid rgba(255, 255, 255, 0.2); /* Borde sutil para destacar */
+}
+
+#food-details-content h3 {
+    text-shadow: 2px 2px 4px rgba(177, 1, 1, 0.8);
+    font-size: 1.8em;
+    color: #000000; /* Color de título más oscuro para contraste */
+    margin-bottom: 10px;
+    word-wrap: break-word; /* Permite que el texto largo se rompa en líneas */
+}
+
+#food-details-content p {
+    text-shadow: 2px 2px 4px rgba(154, 0, 0, 0.8);
+    font-size: 1.1em;
+    color: #000000; /* Color de descripción más oscuro para contraste */
+    line-height: 1.5;
+    word-wrap: break-word; /* Permite que el texto largo se rompa en líneas */
+}
+
+.close-button {
+    position: absolute;
+    top: 15px; /* Ajusta la posición superior */
+    right: 15px; /* Ajusta la posición derecha */
+    font-size: 2.2em; /* Un poco más grande para ser fácil de pulsar */
+    color: #000000; /* Color más oscuro para la "X" */
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s ease, transform 0.2s ease; /* Añade transición para el transform */
+}
+
+.close-button:hover {
+    color: #ff4d4d; /* Un rojo más vibrante al pasar el mouse */
+    transform: scale(1.1); /* Ligero aumento de tamaño al pasar el mouse */
+}
+
+/* --- Media Queries --- */
+
+@media (max-width: 768px) {
+    .menu-container {
+        padding: 25px;
+        max-width: 95%;
+    }
+
+    .logo {
+        width: 85%;
+    }
+
+    header h1 {
+        font-size: 2.3em;
+    }
+
+    .slogan {
+        font-size: 1em;
+    }
+
+    .menu-section h2 {
+        font-size: 1.5em;
+    }
+
+    /* Ajuste para imágenes de sección en tablets */
+    .section-image {
+        height: 150px; /* Reduce la altura en tablets */
+        margin-bottom: 20px;
+    }
+
+    .menu-item p,
+    .menu-item span {
+        font-size: 1em;
+    }
+
+    .menu-item .description {
+        font-size: 0.8em;
+    }
+
+    #food-details-content {
+        max-width: 90%;
+        padding: 25px; /* Ajuste del padding en tablets */
+    }
+
+    #food-details-content img {
+        height: 180px; /* Ajusta la altura de la imagen en tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    .menu-container {
+        padding: 15px;
+        width: 98%;
+    }
+
+    .logo {
+        width: 90%;
+    }
+
+    header h1 {
+        font-size: 1.8em;
+    }
+
+    .slogan {
+        font-size: 0.9em;
+        letter-spacing: 1px;
+    }
+
+    .menu-section h2 {
+        font-size: 1.2em;
+    }
+
+    .menu-section h2::after {
+        width: 30px;
+    }
+
+    /* Ajuste para imágenes de sección en móviles */
+    .section-image {
+        height: 120px; /* Reduce la altura en móviles */
+        border-radius: 8px; /* Ligeramente menos redondeado */
+        margin-bottom: 15px;
+    }
+
+    .menu-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .menu-item p,
+    .menu-item span {
+        font-size: 0.95em;
+        margin-bottom: 3px;
+    }
+
+    .menu-item span {
+        margin-left: 0;
+    }
+
+    .menu-item .description {
+        font-size: 0.75em;
+        padding-left: 0;
+        margin-top: 0;
+    }
+
+    #food-details-content {
+        max-width: 95%;
+        padding: 20px; /* Ajuste del padding en móviles */
+    }
+
+    #food-details-content img {
+        height: 150px; /* Reduce la altura de la imagen en móviles */
+        border-radius: 8px; /* Ligeramente menos redondeado en móviles */
+    }
+}
